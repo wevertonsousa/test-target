@@ -4,5 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Target.Domain\Target.Domain.csproj" />
+    <ProjectReference Include="..\Target.Infrastructure\Target.Infrastructure.csproj" />
+  </ItemGroup>
+
 
 </Project>

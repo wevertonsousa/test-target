@@ -5,33 +5,38 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Target.Domain.Interfaces;
 using Target.Site.Models;
 
 namespace Target.Site.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICustomerRepository _customerRepository;
+        public HomeController(ICustomerRepository customerRepository)
         {
-            _logger = logger;
+            _customerRepository = customerRepository;
         }
-
         public IActionResult Index()
         {
-            return View();
+            CustomersViewModel customersViewModel = new CustomersViewModel()
+            {
+                Customers = _customerRepository.GetList().ToList()
+            };
+            return View(customersViewModel);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public bool DeleteCustomer(int id)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var customer = _customerRepository.GetById(id);
+            if (customer != null)
+            {
+                _customerRepository.Delete(id);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
