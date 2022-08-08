@@ -1,6 +1,6 @@
 # test-target
 
-Connection String está nos arquivos appsettings.json
+Connection String está nos arquivos appsettings.json tanto da API quanto do Site.
 
 
 Script para Criação do Banco e Tabelas
